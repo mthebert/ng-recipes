@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Simple Controller</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+	<style>
+
+	</style>
+</head>
+<body ng-app="myApp">
+	<div class="container">
+		<h1>Simple Controller Functionality</h1>
+		<div class="row" ng-controller="MyController">
+			<p>Simple Controller - Assign default value to a variable: {{someValue}}</p>
+			<p ng-init="incrementvalue(1)">Call a function: {{someValue}}</p>
+			<p >Encapsulate a model value with a getter function: {{getIncrementedValue()}}</p>
+		</div>
+	</div>
+<script src="../lib/angular.min.js"></script>
+<script>
+var myApp = angular.module('myApp',[])
+	.controller('MyController', ['$scope', function($scope) {
+		$scope.someValue=1;
+
+		$scope.incrementvalue = function(increment){
+			$scope.someValue += increment;
+		}
+		$scope.getIncrementedValue = function(){
+			return $scope.someValue + 1;
+		}
+	}])
+	
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Show-Hide Directive</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+	<style>
+
+	</style>
+</head>
+<body ng-app="myApp">
+	<div class="container">
+		<div class="row" ng-controller="MyController">
+			<label for="checkbox">
+				<input id="checkbox" type="checkbox" ng-model="visible">Toggle me
+			</label>
+			<div show="visible">
+				<p>Hidden Text</p>
+			</div>
+		</div>
+	</div>
+<script src="../lib/angular.min.js"></script>
+<script>
+var myApp = angular.module('myApp',[])
+	.controller('MyController', ['$scope', function($scope) {
+
+	}])
+	
+	.directive("show", function() {
+		return {
+			link: function(scope, element, attributes) {
+				scope.$watch(attributes.show, function(value){
+					element.css('display', value ? '' : 'none');
+				});
+			}
+		};
+	});
+</script>
+</body>
+</html>

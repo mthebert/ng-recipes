@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>Scope Watch</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+	<style>
+
+	</style>
+</head>
+<body ng-controller="MyController">
+	<div class="container">
+		<h1>Scope - Watch</h1>
+		<div class="row">
+			<p>Watching the scope for any changes to ng-model, updates the greeting below</p>
+			<input type="text" ng-model="name" placeholder="Enter your name">
+			<p>{{greeting}}</p>
+		</div>
+	</div>
+<script src="../lib/angular.min.js"></script>
+<script>
+var myApp = angular.module('myApp',[])
+	.controller('MyController', ['$scope', function($scope) {
+		$scope.name = "";
+ 		$scope.$watch("name", function(newValue, oldValue) {
+     		if ($scope.name.length > 0) {
+       			$scope.greeting = "Greetings " + $scope.name;
+     		}
+   		});	
+		// more complex watch
+		$scope.$watch(function() {
+   			return $scope.name;
+ 			}, function(newValue, oldValue) {
+   			console.log("change detected: " + newValue)
+ 		});   			
+	}])
+
+</script>
+</body>
+</html>
