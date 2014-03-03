@@ -1,32 +1,100 @@
-<!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 	<meta charset="utf-8">
 	<title>Built-in Directives</title>
-	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="../lib/css/bootstrap.min.css" />
 	<style>
 
 	</style>
 </head>
-<body ng-app="myApp">
+<body>
 	<div class="container">
-		<div class="row" ng-controller="MyController">
-			<p>Using ng-click and ng-show to toggle visibility</p>
-			<button ng-click="toggle()">Toggle</button>
-			<p ng-show="visible">Hello World!</p>
+		<h2>Built-In Directives</h2>
+		<h5><a href="http://code.angularjs.org/1.2.14/docs/api/ng/directive">Angular Documentation</a></h5>
+		<h3>ng-checked</h3>
+		<div class="row">
+			<div class="col-md-4">
+				<label>checkedProperty = {{checkedProperty}}</label>
+				<input type="checkbox" ng-model="checkedProperty" ng-checked="checkedProperty" ng-init="checkedProperty = true" />
+			</div>
 		</div>
+
+		<h3>ng-disabled</h3>
+		<div class="row">
+			<div class="col-md-4">
+				<input type="text" ng-model="disableProperty" placeholder="Type to Enable the button" /><br />
+				<button class="btn btn-primary" ng-model="disabledButton" ng-disabled="!disableProperty">A Button</button>
+			</div>
+			<div class="col-md-4">
+				<textarea ng-disabled="isDisabled">Wait 5 seconds</textarea>
+			</div>
+			<div class="col-md-4">
+				Click me to toggle: <input type="checkbox" ng-model="disabledChecked"><br/>
+				<button class="btn btn-primary" ng-model="button" ng-disabled="disabledChecked">Button</button>
+			</div>
+		</div>
+
+		<h3>ng-href</h3>
+		<div class="row" ng-init="myHref='http://www.google.com'">
+			<div class="col-md-4">
+				<a ng-href="{{myHref}}">I'm feeling lucky, when I load</a>
+			</div>
+		</div>
+
+		<h3>ng-if</h3>
+		<div class="row">
+			<div class="col-md-4">
+				<div ng-if="2 + 2 === 4">
+					Hi, I do exist
+				</div>
+			</div>
+		</div>	
+
+		<h3>ng-readonly</h3>
+		<div class="row">
+			<div class="col-md-4">
+				<input type="text" ng-model="readOnlyProperty" placeholder="Typing Text Here" />
+				<input type="text" ng-readonly="readOnlyProperty" value="Disables This Text" />
+			</div>
+			<div class="col-md-4">
+				Check me to make text readonly: <input type="checkbox" ng-model="readOnlyChecked"><br/>
+				<input type="text" ng-readonly="readOnlyChecked" value="I'm Angular"/>
+			</div>
+		</div>
+
+		<h3>ng-selected</h3>
+		<div class="row">
+			<div class="col-md-4">
+				<label>Select Two Fish:</label>
+				<input type="checkbox" ng-model="isTwoFish" /><br/>
+				<select>
+					<option>One Fish</option>
+					<option ng-selected="isTwoFish">Two Fish</option>
+				</select>
+			</div>
+		</div>
+
+		<h3>ng-src</h3>
+		<div class="row" ng-init="imgSrc='https://www.google.com/images/srpr/logo11w.png'">
+			<div class="col-md-4">
+				<img ng-src="{{imgSrc}}" />
+			</div>
+		</div>	
+
+
+												
 	</div>
-<script src="../lib/angular.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
 <script>
-var myApp = angular.module('myApp',[]);
-myApp.controller('MyController', ['$scope', function($scope) {
-	$scope.visible = true;
+angular.module('myApp', [])
+	.run(function($rootScope, $timeout) {
+		$rootScope.isDisabled = true;
 
-	$scope.toggle = function() {
-		$scope.visible = !$scope.visible;
-	};
-}]);
-
+		$timeout(function() {
+			$rootScope.isDisabled = false;
+		}, 5000);
+	});
 </script>
 </body>
 </html>
